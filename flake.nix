@@ -9,10 +9,13 @@
       (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          qoi = pkgs.pkgsMusl.stdenv.mkDerivation {
+          qoi = pkgs.stdenv.mkDerivation {
             pname = "qoi";
             version = "git";
             src = ./.;
+            buildInputs = [
+              pkgs.raylib
+            ];
             hardeningDisable = ["all"];
             installPhase = ''
               make prefix=$out install
